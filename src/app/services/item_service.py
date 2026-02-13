@@ -1,15 +1,15 @@
 """Service for loading and querying course items from JSON data."""
 
-from dataclasses import dataclass
-
 import json
 import operator
+from dataclasses import dataclass
 from typing import List, Optional, final
 
 from pydantic import TypeAdapter
+
+from app.models.item import Course, Item, Lab, Step, Task
 from app.models.order import Order, PostOrder, PreOrder
 from app.settings import settings
-from app.models.item import Item, Course, Lab, Task, Step
 
 # ===
 #
@@ -228,7 +228,7 @@ def get_item_by_id_dfs_iterative(
 
                     for task in lab.tasks:
                         counter += 1
-                        if lab.id == item_id:
+                        if task.id == item_id:
                             return FoundItem(task, counter)
 
                         for step in task.steps:
